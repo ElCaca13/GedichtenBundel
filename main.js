@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollPromptElement = document.getElementById('scrollPrompt');
     function checkScrollPromptVisibility() {
         if (scrollPromptElement) {
-            if (window.scrollY < 50) {
+            if (window.scrollY < 2250) {
                 scrollPromptElement.classList.add('visible');
             } else {
                 scrollPromptElement.classList.remove('visible');
@@ -11,40 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     window.addEventListener('scroll', checkScrollPromptVisibility);
-    window.addEventListener('load', checkScrollPromptVisibility);
+    window.addEventListener('load', checkScrollPromptVisibility); // Controleer ook bij laden
 
-    // Klikbare scroll-prompt die smooth naar de eerste assignment box scrolt
-    scrollPromptElement.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Zoek de eerste .assignment in het document
-        const firstAssignment = document.querySelector('.assignment');
-        if (firstAssignment) {
-            firstAssignment.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    });
-
-    // Beeldspraak interactie voor emoji - nu robuust, werkt altijd!
-    document.querySelectorAll('.beeldspraak').forEach(el => {
-        const origineleInhoud = el.innerHTML;
-        const typeBeeldspraak = el.dataset.type;
-        let isHovering = false;
-
-        // Gebruik mouseover/mouseout zodat het ook werkt als je over mark of br gaat
-        el.addEventListener('mouseover', (event) => {
-            if (isHovering) return;
-            isHovering = true;
-            if (typeBeeldspraak) {
-                el.innerHTML = `<mark style="font-size:1.4em;display:inline-block;text-align:center;width:100%">${typeBeeldspraak}</mark>`;
+    // Klikbare scroll-prompt
+    if (scrollPromptElement) {
+        scrollPromptElement.addEventListener('click', (e) => {
+            e.preventDefault();
+            const firstAssignment = document.querySelector('.assignment');
+            if (firstAssignment) {
+                firstAssignment.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
-        el.addEventListener('mouseout', (event) => {
-            // Alleen terugzetten als je echt buiten de .beeldspraak span gaat
-            if (!el.contains(event.relatedTarget)) {
-                el.innerHTML = origineleInhoud;
-                isHovering = false;
-            }
-        });
-    });
+    }
 
     // Parallax animatie
     const gedichtPre = document.querySelector('#gedichtContainer pre');
