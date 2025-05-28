@@ -1,17 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Quicksand:wght@400;600&display=swap');
 
 :root {
-    --eu-blue: #003399;
-    --eu-yellow: #FFCC00;
-    --eu-yellow-hover: #ffe466;
+    --eu-blue-dark: #003399; /* Donker EU Blauw */
+    --eu-blue-medium: #3366CC; /* Medium EU Blauw voor accenten */
+    --eu-yellow-base: #FFCC00; /* Basis EU Geel */
+    --eu-yellow-light: #ffe466; /* Lichtere geel voor hover */
+    --eu-star-blue-highlight: #ADD8E6; /* Lichtblauw voor Alliteratie (afgeleid ster) */
+    --eu-star-blue-highlight-hover: #BCE8F1;
+    --gold-highlight: #FFD700; /* Goud voor Enjambement */
+    --gold-highlight-hover: #FFEC8B;
+    --cream-highlight: #FFF8DC; /* Crème/lichtgeel voor Eindrijm */
+    --cream-highlight-hover: #FAF0E6;
+
     --pastel-mint: #B8F2E6;
     --pastel-lila: #e9e4f0;
     --pastel-rose: #ffe1ed;
     --footer-bg: #ffffffee;
-    --footer-border: #003399;
-    --mark-highlight-gedicht-default: #fdfdcb;
-    --mark-highlight-gedicht-hover: #faffa3;
     --shadow: 0 4px 16px rgba(0,0,0,0.07);
+
+    /* Beeldspraak kleuren (EU Geel) */
+    --beeldspraak-lied-bg-default: var(--eu-yellow-base);
+    --beeldspraak-lied-bg-hover: var(--eu-yellow-light);
+    --beeldspraak-gedicht-bg-default: #fffacd; /* Zeer zacht geel voor gedicht */
+    --beeldspraak-gedicht-bg-hover: #fff5ba;
+
+    /* Stijlfiguur tekstkleuren (voor gedicht sectie) */
+    --alliteratie-text-gedicht: #005A9C; /* Donkerblauw voor leesbaarheid op lichtblauw */
+    --enjambement-text-gedicht: #8B4513; /* Bruin voor leesbaarheid op goud */
+    --eindrijm-text-gedicht: #5D4037;   /* Donkerbruin voor leesbaarheid op crème */
+
+    /* Pop-up label kleuren (uniform en contrasterend) */
+    --popup-label-bg: rgba(40, 40, 50, 0.97); /* Donker, semi-transparant */
+    --popup-label-text: #f5f5f5;              /* Heel lichtgrijs/wit */
+    --popup-label-shadow: 0 3px 12px rgba(0,0,0,0.25);
 }
 
 body {
@@ -19,6 +40,7 @@ body {
     min-height: 100vh;
     font-family: 'Quicksand', Arial, sans-serif;
     background: linear-gradient(120deg, var(--pastel-mint) 0%, var(--pastel-lila) 100%);
+    color: #333;
 }
 
 main {
@@ -40,7 +62,10 @@ section {
     flex-direction: column;
     overflow: hidden;
     background: white;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s ease-in-out;
+}
+section:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
 #gedichtContainer {
@@ -49,148 +74,257 @@ section {
 }
 
 #liedContainer {
-    background: linear-gradient(135deg, var(--eu-blue) 70%, #0d1a4d 100%);
+    background: linear-gradient(135deg, var(--eu-blue-dark) 70%, #0d1a4d 100%);
     color: white;
-    border: 2px solid var(--eu-blue);
+    border: 2px solid var(--eu-blue-dark);
 }
 
 h2 {
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 700;
     font-size: 2rem;
-    margin: 1.2rem 0 0.5rem 0;
+    margin: 1.5rem 0 0.8rem 0;
     letter-spacing: 0.03em;
     text-align: center;
+    color: inherit;
+}
+#gedichtContainer h2 {
+    color: #2c3e50;
 }
 
 pre {
     font-family: 'Quicksand', 'Courier New', Courier, monospace;
     font-size: 1.1rem;
     line-height: 1.7;
-    padding: 2rem 2rem 1rem 2rem;
+    padding: 1.5rem 2rem;
     margin: 0;
     background: transparent;
     border: none;
-    border-radius: 0;
-    box-shadow: none;
     white-space: pre-wrap;
     word-break: break-word;
-    transition: background 0.3s;
+    flex-grow: 1;
+    animation: fadeInText 0.8s ease-out 0.2s both;
+    position: relative;
+    z-index: 2;
+}
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .assignment {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    background: linear-gradient(120deg, #fffbe6 0%, #e6f7ff 100%);
-    color: #2a2a2a;
+    background: linear-gradient(120deg, #fffef7 0%, #f0f8ff 100%);
+    color: #3a3a3a;
     padding: 1.6rem 1.5rem;
-    border-radius: 0 0 22px 22px;
-    border-left: 6px solid var(--footer-border);
-    box-shadow: 0 6px 24px -8px rgba(0,0,0,0.13), 0 1.5px 0 #fff inset;
+    border-radius: 0 0 18px 18px;
+    border-left: 6px solid var(--eu-blue-medium); /* Medium blauw voor accent */
+    box-shadow: 0 6px 24px -8px rgba(0,0,0,0.1), 0 1.5px 0 #fff inset;
     font-style: italic;
-    font-size: 1.09rem;
+    font-size: 1.05rem;
     margin: 0;
     margin-top: auto;
-    border-top: 1px solid #e0e0e0;
-    animation: slideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    border-top: 1px solid #e8e8e8;
+    animation: slideInFooter 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.3s both;
     position: relative;
     overflow: hidden;
+    z-index: 2;
+}
+@keyframes slideInFooter {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 .assignment-icon {
-    font-size: 2.1em;
-    margin-top: -0.2em;
-    filter: drop-shadow(0 2px 4px #e0e0e0);
+    font-size: 1.8em;
+    margin-top: 0.05em;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.1));
     flex-shrink: 0;
-    animation: iconPop 1s cubic-bezier(.42,0,0,1.34) both;
+    animation: iconPop 1s cubic-bezier(.42,0,0,1.34) 0.5s both;
 }
 @keyframes iconPop {
     0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
-    70% { transform: scale(1.2) rotate(8deg); opacity: 1; }
+    70% { transform: scale(1.15) rotate(8deg); opacity: 1; }
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
-.assignment::after {
+.assignment::before {
     content: "";
     position: absolute;
-    left: -60px;
+    left: -80px;
     top: 50%;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, #e6f7ff 0%, #fffbe6 80%, transparent 100%);
-    opacity: 0.15;
-    transform: translateY(-50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(230,247,255,0.2) 70%, transparent 100%);
+    opacity: 0;
+    transform: translateY(-50%) scale(0.8);
     z-index: 0;
     pointer-events: none;
-    animation: fadeInBg 1.2s 0.5s both;
+    animation: fadeInBgFooter 1.5s ease-out 0.8s both;
 }
-@keyframes fadeInBg {
-    from { opacity: 0; }
-    to { opacity: 0.15; }
+@keyframes fadeInBgFooter {
+    from { opacity: 0; transform: translateY(-50%) scale(0.8); }
+    to { opacity: 1; transform: translateY(-50%) scale(1); }
 }
 .assignment > div {
     position: relative;
     z-index: 2;
 }
 
-/* Markering en animatie */
-.beeldspraak {
+/* --- Algemene styling voor ALLE markeringen (Beeldspraak & Stijlfiguren) --- */
+.beeldspraak,
+.stijlfiguur {
     display: inline-block;
+    position: relative;
     cursor: pointer;
-    transition: transform 0.2s;
-    margin: 0 0.1em;
+    transition: transform 0.2s ease-out;
+    padding: 0.1em 0;
+    margin: 0 0.05em;
+    z-index: 2; 
 }
-.beeldspraak:hover {
-    transform: scale(1.025) translateY(-1px);
+.beeldspraak:hover,
+.stijlfiguur:hover {
+    transform: scale(1.02) translateY(-1px);
+    z-index: 3; 
 }
 
-.beeldspraak mark {
-    background: linear-gradient(90deg, var(--eu-yellow) 60%, var(--eu-yellow-hover) 100%);
-    border-radius: 4px;
-    padding: 0.07em 0.18em;
-    margin: 0 -0.15em;
-    transition: background-position 0.5s cubic-bezier(.45,1.6,.41,.84), box-shadow 0.3s;
-    background-size: 200% 100%;
-    background-position: 100% 0;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+.beeldspraak mark,
+.stijlfiguur mark {
     position: relative;
     z-index: 1;
     color: inherit;
     font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    background-color: transparent;
+    display: inline;
+    line-height: inherit;
+    vertical-align: baseline;
+    padding: 0.05em 0.15em;
+    margin: 0 -0.15em;
+    border-radius: 3px;
+    overflow: hidden;
 }
 
-.beeldspraak:hover mark {
+.beeldspraak mark::before,
+.stijlfiguur mark::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 3px;
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    transition: background-position 0.4s cubic-bezier(0.6, 0, 0.4, 1);
+}
+.beeldspraak:hover mark::before,
+.stijlfiguur:hover mark::before {
     background-position: 0% 0;
-    box-shadow: 0 2px 12px rgba(255,204,0,0.12);
 }
 
-/* Voor het lied: extra leesbaarheid op geel */
-#liedContainer .beeldspraak mark {
-    background: linear-gradient(90deg, var(--eu-yellow) 60%, var(--eu-yellow-hover) 100%);
-    color: white;
-    text-shadow: 0 1px 4px #003399, 0 0 2px #222;
+/* --- Pop-up Label (uniform voor .beeldspraak en .stijlfiguur) --- */
+.beeldspraak::after,
+.stijlfiguur::after {
+    content: attr(data-type);
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%) translateY(-8px);
+    background: var(--popup-label-bg);
+    color: var(--popup-label-text);
+    box-shadow: var(--popup-label-shadow);
+    border-radius: 6px;
+    padding: 0.4em 0.8em;
+    font-size: 0.9em;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+    white-space: nowrap;
+    z-index: 10; 
+}
+.beeldspraak:hover::after,
+.stijlfiguur:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-12px);
 }
 
-/* Voor het gedicht: zachte pastelmarkering */
+/* --- Kleurdefinities voor Beeldspraak (GEEL) --- */
 #gedichtContainer .beeldspraak mark {
-    background: linear-gradient(90deg, #fdfdcb 60%, #faffa3 100%);
     color: #333;
-    text-shadow: none;
+}
+#gedichtContainer .beeldspraak mark::before {
+    background-image: linear-gradient(to right,
+        var(--beeldspraak-gedicht-bg-hover) 50%,
+        var(--beeldspraak-gedicht-bg-default) 50%
+    );
+}
+#liedContainer .beeldspraak mark { /* Beeldspraak in lied blijft EU Geel */
+    color: white;
+    text-shadow: 0 0 4px var(--eu-blue-dark), 0 0 2px rgba(0,0,0,0.6);
+}
+#liedContainer .beeldspraak mark::before {
+    background-image: linear-gradient(to right,
+        var(--beeldspraak-lied-bg-hover) 50%,
+        var(--beeldspraak-lied-bg-default) 50%
+    );
 }
 
-/* Animaties */
-@keyframes floatUp {
-    0% { transform: translateY(25px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
+/* --- Kleurdefinities voor Stijlfiguren (Verschillende kleuren) --- */
+/* Default stijlfiguur (als geen specifiek type matcht - niet echt gebruikt nu) */
+#gedichtContainer .stijlfiguur mark {
+    color: #333; /* Basis donkere tekst voor gedicht */
 }
-@keyframes slideIn {
-    0% { transform: translateY(50px); opacity: 0;}
-    100% { transform: translateY(0); opacity: 1;}
+#liedContainer .stijlfiguur mark {
+    color: white; /* Basis witte tekst voor lied */
+    text-shadow: 0 0 3px var(--eu-blue-dark), 0 0 2px rgba(0,0,0,0.5); /* Algemene schaduw */
 }
-@keyframes pulse {
-    0% { transform: translateX(-50%) scale(1);}
-    50% { transform: translateX(-50%) scale(1.05);}
-    100% { transform: translateX(-50%) scale(1);}
+
+/* Specifieke kleuren voor STIJLFIGUUR types */
+.stijlfiguur[data-type='Alliteratie'] mark::before {
+    background-image: linear-gradient(to right, var(--eu-star-blue-highlight-hover) 50%, var(--eu-star-blue-highlight) 50%);
+}
+#gedichtContainer .stijlfiguur[data-type='Alliteratie'] mark { color: var(--alliteratie-text-gedicht); }
+/* Voor lied blijft de tekst wit, met text-shadow. De highlight kleur is al gezet. */
+
+.stijlfiguur[data-type='Enjambement'] mark::before {
+    background-image: linear-gradient(to right, var(--gold-highlight-hover) 50%, var(--gold-highlight) 50%);
+}
+#gedichtContainer .stijlfiguur[data-type='Enjambement'] mark { color: var(--enjambement-text-gedicht); }
+
+.stijlfiguur[data-type='Eindrijm'] mark::before {
+    background-image: linear-gradient(to right, var(--cream-highlight-hover) 50%, var(--cream-highlight) 50%);
+}
+#gedichtContainer .stijlfiguur[data-type='Eindrijm'] mark { color: var(--eindrijm-text-gedicht); }
+
+
+/* Joost Klein gif */
+.joost-bounce-gif-bg {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 56px;
+    height: auto;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.85;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.13));
+    animation: joost-bounce-move 7s linear infinite;
+}
+@keyframes joost-bounce-move {
+    0%   { left: -56px;   bottom: 0;   transform: translateY(0) scale(1) rotate(-10deg);}
+    10%  { left: 10vw;  bottom: 18px;transform: translateY(-18px) scale(1.1) rotate(-5deg);}
+    20%  { left: 20vw;  bottom: 0;   transform: translateY(0) scale(1) rotate(0deg);}
+    30%  { left: 30vw;  bottom: 14px;transform: translateY(-14px) scale(0.95) rotate(5deg);}
+    40%  { left: 40vw;  bottom: 0;   transform: translateY(0) scale(1) rotate(10deg);}
+    50%  { left: 50vw;  bottom: 20px;transform: translateY(-20px) scale(1.08) rotate(6deg);}
+    60%  { left: 60vw;  bottom: 0;   transform: translateY(0) scale(1) rotate(0deg);}
+    70%  { left: 70vw;  bottom: 16px;transform: translateY(-16px) scale(0.92) rotate(-5deg);}
+    80%  { left: 80vw;  bottom: 0;   transform: translateY(0) scale(1) rotate(-10deg);}
+    90%  { left: 90vw;  bottom: 12px;transform: translateY(-12px) scale(1.05) rotate(-6deg);}
+    100% { left: 105vw; bottom: 0;   transform: translateY(0) scale(1) rotate(-10deg);}
 }
 
 /* Scroll Prompt Popup */
@@ -199,8 +333,8 @@ pre {
     bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--eu-blue);
-    color: var(--eu-yellow);
+    background: var(--eu-blue-dark);
+    color: var(--eu-yellow-base);
     padding: 12px 26px;
     border-radius: 30px;
     font-weight: bold;
@@ -249,30 +383,4 @@ pre {
     h2 {
         font-size: 1.3rem;
     }
-}
-.joost-bounce-gif {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 90px;
-    height: auto;
-    z-index: 100; /* Achter alles */
-    pointer-events: none;
-    opacity: 0.85;
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.13));
-    animation: joost-bounce-move 7s linear infinite;
-}
-
-@keyframes joost-bounce-move {
-    0%   { left: 0vw;   bottom: 0;   transform: translateY(0) scale(1) rotate(-10deg);}
-    10%  { left: 10vw;  bottom: 18px;transform: translateY(-18px) scale(1.1) rotate(-5deg);}
-    20%  { left: 20vw;  bottom: 0;   transform: translateY(0) scale(1) rotate(0deg);}
-    30%  { left: 30vw;  bottom: 14px;transform: translateY(-14px) scale(0.95) rotate(5deg);}
-    40%  { left: 40vw;  bottom: 0;   transform: translateY(0) scale(1) rotate(10deg);}
-    50%  { left: 50vw;  bottom: 20px;transform: translateY(-20px) scale(1.08) rotate(6deg);}
-    60%  { left: 60vw;  bottom: 0;   transform: translateY(0) scale(1) rotate(0deg);}
-    70%  { left: 70vw;  bottom: 16px;transform: translateY(-16px) scale(0.92) rotate(-5deg);}
-    80%  { left: 80vw;  bottom: 0;   transform: translateY(0) scale(1) rotate(-10deg);}
-    90%  { left: 90vw;  bottom: 12px;transform: translateY(-12px) scale(1.05) rotate(-6deg);}
-    100% { left: 100vw; bottom: 0;   transform: translateY(0) scale(1) rotate(-10deg);}
 }
