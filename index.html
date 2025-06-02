@@ -3,195 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bundel van Babel en Camiel</title>
+    <title>Gedichtenbundel</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
-        <section id="gedichtContainer">
-            <h2>Gedicht</h2>
-            <pre>
-Vrede is eten met muziek 
+    <header class="header">
+        <div class="container">
+            <h1>Gedichtenbundel</h1>
+            <p class="subtitle">door Camiel van der Locht en Abel Verkoeijen</p>
+        </div>
+    </header>
 
-Vredig eten is goed eten 
-Want lekker eten doet men alleen in rust en vrede 
-Voor een goede spijsvertering is het een vereiste 
-Dat men elk hapje minstens vijftienmaal kauwt 
-Daarom eet men met muziek ook beter 
-Want onder vrolijke tonen bewegen de kaken vanzelf 
-Harmonieus en met de kaken ook de slokdarm 
-En later zelfs de overige dertig meter 
-Lange darmen in de buik 
+    <nav class="nav-tabs">
+        <div class="container">
+            <button class="tab-button active" data-tab="europapa">Europapa - Joost Klein</button>
+            <button class="tab-button" data-tab="vrede">Vrede is eten met muziek</button>
+            <button class="tab-button" data-tab="eigen">Eigen Gedichten</button>
+            <button class="tab-button" data-tab="uitleg">Uitleg Begrippen</button>
+        </div>
+    </nav>
 
-Vrede is goed eten met goede muziek 
-<u>Met marsmuziek kan men beter lopen dan eten</u> 
-Als men dan ook maar vredig loopt 
-En niet meemarcheert met een troep soldaten 
-Tegen andere soldaten 
-Dan is marsmuziek net zo bedorven 
-Als besmet voedsel 
-Maar bij dansmuziek is het zeker goed eten 
-Want dansen is geen vechten 
-Wie danst houdt rekening met andere dansers 
-Zoals men onder het eten niet alle 
-Lekkere hapjes alleen verorbert maar die deelt 
-Met de overigen de disgenoten 
+    <main id="main" class="container">
+        <div class="legend">
+            <h3>Legenda</h3>
+            <div class="legend-items">
+                <span class="legend-item">
+                    <span class="legend-color enjambement"></span>
+                    Enjambement
+                </span>
+                <span class="legend-item">
+                    <span class="legend-color eindrijm"></span>
+                    Eindrijm
+                </span>
+                <span class="legend-item">
+                    <span class="legend-color alliteratie"></span>
+                    Alliteratie
+                </span>
+                <span class="legend-item">
+                    <span class="legend-color metafoor"></span>
+                    Metafoor/Beeldspraak
+                </span>
+            </div>
+        </div>
 
-KFC,
-jouw kip heeft mijn ziel.
-Jouw kip is
-als de warme zomerzon.
-Je cola
-als een frisse bries door je haar.
-Ik heb je vega-kipburgers verorbert
-je voedsel vernietigt.
-Ik weet nu dat ik lekker hebt geleefd.
+        <!-- Europapa Tab -->
+        <section id="europapa" class="tab-content active">
+            <div class="card">
+                <div class="card__header">
+                    <h2>Europapa - Joost Klein</h2>
+                    <p>Analyse van het Eurovision-lied</p>
+                </div>
+                <div class="card__body">
+                    <div class="lyrics">
+                        <p>Europe let's come together!<br>
+                        (Euro-pa-pa, Euro-pa-pa)<br>
+                        It's now or never!<br>
+                        I love you all!<br>
+                        (Euro-pa-pa, Euro-pa-pa)</p>
 
-De zon schijnt door de minstens
-terwijl ik op mijn fiets stap
-vergeet ik mijn tas.
-toen ik op school kwam
-werd ik tijdens nederlands
-met veel geweld geveld
-mijn dagen waren geteld.
+                        <p>Welkom in <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">Europa</span><br>
+                        Blijf hier tot ik <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">doodga</span><br>
+                        Euro-pa-pa, Euro-pa-pa</p>
 
-Een appel valt niet ver van de boom
-zeggen ze vaak
-Bedenk ik
-terwijl ik mijn natuurkundetoets maak
-Maar wat nou als het waait
-of de appel neemt de benen
-Ik weet het niet meer
-mijn gedachten zijn verdwenen
-Net als mijn toets
-zonder antwoorden ingeleverd
-            </pre>
-            <div class="assignment" id="opdrachten-gedicht">
-                <span class="assignment-icon">📝</span>
-                <div>
-                    Het gedicht “Vrede is eten met muziek” heeft 2 strofen, de eerste bestaat uit 9 regels en de tweede bestaat uit 13 regels.<br><br>
-                    Ons gedicht heeft enjambement een voorbeeld hiervan is de zin: "Voor een goede spijsvertering is het een vereiste, dat men elke hap minstens vijftien maal kauwt."
-                    Wij zijn het hier alleen niet mee eens, want wij hebben altijd genoeg aan twee keer kauwen. 
+                        <p>Welkom in <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">Europa</span><br>
+                        Blijf hier tot ik <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">doodga</span><br>
+                        Euro-pa-pa, Euro-pa-pa</p>
+
+                        <p><span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Bezoek m'n friends in France<br>
+                        Of neem de benen naar Wenen</span><br>
+                        <span class="highlight alliteratie" data-tooltip="Alliteratie: herhaling van de 'n' klank aan het begin van woorden.">neem de benen naar Wenen</span><br>
+                        <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Ik wil weg uit Netherlands<br>
+                        maar m'n paspoort is verdwenen</span></p>
+
+                        <p><span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Heb gelukkig geen visum nodig<br>
+                        Om bij je te zijn</span><br>
+                        <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Dus neem de bus naar Polen<br>
+                        Of de trein naar Berlijn</span></p>
+
+                        <p><span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Ik heb geen geld voor Paris<br>
+                        Dus gebruik m'n fantasie</span><br>
+                        <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Heb je een eurootje please<br>
+                        Zeg "merci" en "alsjeblieft"</span></p>
+
+                        <p><span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Ik ben echt alles kwijt<br>
+                        Behalve de tijd</span><br>
+                        <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Dus ben elke dag op reis<br>
+                        Want de wereld is van mij</span></p>
+
+                        <p>Welkom in <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">Europa</span><br>
+                        Blijf hier tot ik <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">doodga</span><br>
+                        Euro-pa-pa, Euro-pa-pa</p>
+
+                        <p>Welkom in <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">Europa</span><br>
+                        Blijf hier tot ik <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">doodga</span><br>
+                        Euro-pa-pa, Euro-pa-pa</p>
+
+                        <p>Euro-pa-pa-pa-pa-pa-pa-pa<br>
+                        Euro-pa-pa-pa<br>
+                        (Hey)<br>
+                        Euro-pa-pa-pa-pa-pa-pa-pa<br>
+                        Eu-ro-pa!<br>
+                        (Hey)</p>
+
+                        <p>Ich bin in Deutschland<br>
+                        Aber Ich bin so <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'allein' en 'pijn' rijmen aan het einde van de regels.">allein</span><br>
+                        Io sono in Italia<br>
+                        Maar toch doet het <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'allein' en 'pijn' rijmen aan het einde van de regels.">pijn</span></p>
+
+                        <p><span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Ben aan het vluchten van mezelf<br>
+                        Roep de hele dag om "help!"</span><br>
+                        <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Ja ik geef zelfs mensen geld<br>
+                        Maar d'r is niemand die me helpt</span></p>
+
+                        <p>Ik hoef geen es-car-gots<br>
+                        Hoef geen fish 'n chips<br>
+                        Hoef geen paella, no<br>
+                        Ik weet niet eens echt wat dat is</p>
+
+                        <p><span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Zet de radio aan<br>
+                        Ik hoor Stromae met "Papaoutai"</span><br>
+                        <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Zal niet stoppen tot ze zeggen<br>
+                        "Ja, ja, dat doet-ie goed ey!"</span></p>
+
+                        <p>Welkom in <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">Europa</span><br>
+                        Blijf hier tot ik <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">doodga</span><br>
+                        Euro-pa-pa, Euro-pa-pa</p>
+
+                        <p>Welkom in <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">Europa</span><br>
+                        Blijf hier tot ik <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'Europa' en 'doodga' rijmen aan het einde van de regels.">doodga</span><br>
+                        Euro-pa-pa, Euro-pa-pa</p>
+
+                        <p>Euro-pa-pa-pa-pa-pa-pa-pa<br>
+                        Euro-pa-pa-pa<br>
+                        (Hey)<br>
+                        Euro-pa-pa-pa-pa-pa-pa-pa<br>
+                        Eu-ro-pa!</p>
+
+                        <p>Euro-pa-pa-pa-pa-pa-pa-pa-pa-pa-pa-pa….</p>
+
+                        <p>Welkom in Europa jongen!<br>
+                        (Hey)<br>
+                        Eu-ro-pa</p>
+
+                        <p><span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Aan het einde van de dag<br>
+                        Zijn we allemaal mensen</span><br>
+                        <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Mijn vader zei me ooit<br>
+                        Het is een wereld zonder grenzen</span></p>
+
+                        <p><span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Ik mis je elke dag<br>
+                        Is wat ik stiekempjes fluister</span><br>
+                        <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Zie je nou wel pa<br>
+                        Ik heb naar je geluisterd</span></p>
+                    </div>
+                    
+                    <div class="analysis-notes">
+                        <h3>Analyse</h3>
+                        <p>Wij hebben dit lied gekozen omdat Abel groot fan is van Joost Klein en omdat het gewoon een leuk liedje is. En natuurlijk ook omdat hij ongeveer het songfestival had gewonnen.</p>
+                        
+                        <p>Het liedje heeft 11 coupletten en refreinen. Elk onderdeel heeft 4 regels, behalve het couplet net voor de drop. Ook heeft Europapa veel enjambement, in bijna elk couplet loopt de zin over 2 regels en bestaat een couplet dus in 2 zinnen.</p>
+                        
+                        <p>En Europapa heeft heel veel eindrijm bijvoorbeeld "Welkom in Europa, blijf hier tot ik doodga!" , maar het heeft geen vast rijmschema. Het is wel vaak ABCB, maar soms is er geen rijm in een couplet. Een voorbeeld van alliteratie is "neem de benen naar Wenen".</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="liedContainer">
-            <h2>Europapa</h2>
-            <pre>
-Europe let’s come together!
-(Euro-pa-pa, Euro-pa-pa)
-It’s now or never!
-I love you all!
-(Euro-pa-pa, Euro-pa-pa)
+        <!-- Vrede Tab -->
+        <section id="vrede" class="tab-content">
+            <div class="card">
+                <div class="card__header">
+                    <h2>Vrede is eten met muziek</h2>
+                    <p>Analyse van een gedicht over vrede, eten en muziek</p>
+                </div>
+                <div class="card__body">
+                    <div class="poem">
+                        <h3>Vrede is eten met muziek</h3>
+                        
+                        <div class="stanza">
+                            <p><span class="highlight metafoor" data-tooltip="Personificatie: eten krijgt menselijke eigenschap 'vredig'">Vredig eten is goed eten</span><br>
+                            <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Want lekker eten doet men alleen in rust en vrede<br>
+                            Voor een goede spijsvertering is het een vereiste</span><br>
+                            <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Dat men elk hapje minstens vijftienmaal kauwt<br>
+                            Daarom eet men met muziek ook beter</span><br>
+                            <span class="highlight metafoor" data-tooltip="Personificatie: kaken bewegen 'vanzelf' - menselijke eigenschap">Want onder vrolijke tonen bewegen de kaken vanzelf</span><br>
+                            <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Harmonieus en met de kaken ook de slokdarm<br>
+                            En later zelfs de overige dertig meter</span><br>
+                            Lange darmen in de buik</p>
+                        </div>
 
-Welkom in <span class="stijlfiguur" data-type="Eindrijm"><mark>Europa</mark></span>
-Blijf hier tot ik <span class="stijlfiguur" data-type="Eindrijm"><mark>doodga</mark></span>
-Euro-pa-pa, Euro-pa-pa
+                        <div class="stanza">
+                            <p><span class="highlight metafoor" data-tooltip="Metafoor: vrede wordt gelijkgesteld aan eten met muziek">Vrede is goed eten met goede muziek</span><br>
+                            <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Met marsmuziek kan men beter lopen dan eten<br>
+                            Als men dan ook maar vredig loopt</span><br>
+                            <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">En niet meemarcheert met een troep soldaten<br>
+                            Tegen andere soldaten</span><br>
+                            <span class="highlight metafoor" data-tooltip="Vergelijking: marsmuziek wordt vergeleken met besmet voedsel">Dan is marsmuziek net zo bedorven<br>
+                            Als besmet voedsel</span><br>
+                            <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Maar bij dansmuziek is het zeker goed eten<br>
+                            Want dansen is geen vechten</span><br>
+                            <span class="highlight metafoor" data-tooltip="Vergelijking: dansers houden rekening met elkaar zoals eters delen">Wie danst houdt rekening met andere dansers<br>
+                            Zoals men onder het eten niet alle</span><br>
+                            <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Lekkere hapjes alleen verorbert maar die deelt<br>
+                            Met de overigen de disgenoten</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-notes">
+                        <h3>Analyse</h3>
+                        <p>Het gedicht "Vrede is eten met muziek" heeft 2 strofen, de eerste bestaat uit 9 regels en de tweede bestaat uit 13 regels.</p>
+                        
+                        <p>Ons gedicht heeft enjambement een voorbeeld hiervan is de zin: "Voor een goede spijsvertering is het een vereiste, dat men elke hap minstens vijftien maal kauwt." Wij zijn het hier alleen niet mee eens, want wij hebben altijd genoeg aan twee keer kauwen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-Welkom in <span class="stijlfiguur" data-type="Eindrijm"><mark>Europa</mark></span>
-Blijf hier tot ik <span class="stijlfiguur" data-type="Eindrijm"><mark>doodga</mark></span>
-Euro-pa-pa, Euro-pa-pa
+        <!-- Eigen Gedichten Tab -->
+        <section id="eigen" class="tab-content">
+            <div class="card">
+                <div class="card__header">
+                    <h2>Eigen Gedichten</h2>
+                    <p>Zelfgeschreven gedichten van de ons</p>
+                </div>
+                <div class="card__body">
+                    <div class="poem">
+                        <h3>KFC</h3>
+                        <div class="stanza">
+                            <p>KFC,<br>
+                            jouw kip heeft mijn ziel.<br>
+                            <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Jouw kip is<br>
+                            als de warme zomerzon.</span><br>
+                            Je cola<br>
+                            als een frisse bries door je haar.<br>
+                            Ik heb je vega-kipburgers <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'verorbert' en 'vernietigt' rijmen aan het einde van de regels.">verorbert</span><br>
+                            je voedsel <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'verorbert' en 'vernietigt' rijmen aan het einde van de regels.">vernietigt</span>.<br>
+                            Ik weet nu dat ik lekker hebt geleefd.</p>
+                        </div>
+                    </div>
 
-Bezoek m’n friends in France
-Of <span class="stijlfiguur" data-type="Alliteratie"><mark>neem de benen naar Wenen</mark></span>
-<span class="stijlfiguur" data-type="Enjambement"><mark>Ik wil weg uit Netherlands</mark><br><mark>maar m’n paspoort is verdwenen</mark></span>
+                    <div class="poem">
+                        <h3>De zon schijnt</h3>
+                        <div class="stanza">
+                            <p>De zon schijnt door de minstens<br>
+                            terwijl ik op mijn fiets stap<br>
+                            vergeet ik mijn tas.<br>
+                            toen ik op school kwam<br>
+                            werd ik tijdens nederlands<br>
+                            met veel geweld <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'geveld' en 'geteld' rijmen aan het einde van de regels.">geveld</span><br>
+                            mijn dagen waren <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'geveld' en 'geteld' rijmen aan het einde van de regels.">geteld</span>.</p>
+                        </div>
+                    </div>
 
-Heb gelukkig geen visum nodig
-Om bij je te zijn
-Dus neem de bus naar Polen
-Of de trein naar Berlijn
+                    <div class="poem">
+                        <h3>Een appel</h3>
+                        <div class="stanza">
+                            <p>Een appel valt niet ver van de boom<br>
+                            zeggen ze <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'vaak' en 'maak' rijmen aan het einde van de regels.">vaak</span><br>
+                            Bedenk ik<br>
+                            terwijl ik mijn natuurkundetoets <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'vaak' en 'maak' rijmen aan het einde van de regels.">maak</span><br>
+                            Maar wat nou als het waait<br>
+                            of de appel neemt de <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'benen' en 'verdwenen' rijmen aan het einde van de regels.">benen</span><br>
+                            <span class="highlight enjambement" data-tooltip="Enjambement: de zin loopt door over meerdere regels.">Ik weet het niet meer<br>
+                            mijn gedachten zijn <span class="highlight eindrijm" data-tooltip="Eindrijm: de woorden 'benen' en 'verdwenen' rijmen aan het einde van de regels.">verdwenen</span></span><br>
+                            Net als mijn toets<br>
+                            zonder antwoorden ingeleverd</p>
+                        </div>
+                    </div>
 
-Ik heb geen geld voor Paris
-Dus gebruik m’n fantasie
-Heb je een eurootje please
-Zeg “merci” en “alsjeblieft”
+                    <!-- Extra spacer for forcing scrolling -->
+                    <div class="spacer"></div>
+                </div>
+            </div>
+        </section>
 
-<span class="beeldspraak" data-type="Personificatie"><mark>Ik ben echt alles kwijt</mark><br><mark>Behalve de tijd</mark></span>
-Dus ben elke dag op reis
-Want de wereld is van mij
+        <!-- Uitleg Tab -->
+        <section id="uitleg" class="tab-content">
+            <div class="card">
+                <div class="card__header">
+                    <h2>Uitleg Begrippen</h2>
+                    <p>Definities van begrippen en stijlfiguren</p>
+                </div>
+                <div class="card__body">
+                    <div class="term-section">
+                        <h3>Basisconcepten</h3>
+                        <div class="term">
+                            <strong>Enjambement:</strong> Bij enjambement loopt een zin door over meerdere regels. De regel wordt afgebroken, terwijl de zin doorloopt.
+                        </div>
+                        <div class="term">
+                            <strong>Eindrijm:</strong> Bij eindrijm rijmen de laatste woorden van dichtregels met elkaar.
+                        </div>
+                    </div>
 
-Welkom in <span class="stijlfiguur" data-type="Eindrijm"><mark>Europa</mark></span>
-Blijf hier tot ik <span class="stijlfiguur" data-type="Eindrijm"><mark>doodga</mark></span>
-Euro-pa-pa, Euro-pa-pa
+                    <div class="term-section">
+                        <h3>Stijlfiguren</h3>
+                        <div class="term">
+                            <strong>Opsomming:</strong> Meerdere elementen achter elkaar noemen
+                        </div>
+                        <div class="term">
+                            <strong>Antithese:</strong> Tegenstelling om aandacht te trekken
+                        </div>
+                        <div class="term">
+                            <strong>Paradox:</strong> Schijnbare tegenstelling die bij nadenken wel klopt
+                        </div>
+                        <div class="term">
+                            <strong>Hyperbool:</strong> Sterke overdrijving
+                        </div>
+                        <div class="term">
+                            <strong>Retorische vraag:</strong> Vraag waarop geen antwoord wordt verwacht
+                        </div>
+                        <div class="term">
+                            <strong>Alliteratie:</strong> Beginletters van woorden zijn gelijk
+                        </div>
+                    </div>
 
-Welkom in <span class="stijlfiguur" data-type="Eindrijm"><mark>Europa</mark></span>
-Blijf hier tot ik <span class="stijlfiguur" data-type="Eindrijm"><mark>doodga</mark></span>
-Euro-pa-pa, Euro-pa-pa
+                    <div class="term-section">
+                        <h3>Beeldspraak</h3>
+                        <div class="term">
+                            <strong>Vergelijking:</strong> Vergelijken met 'als' of 'lijken'
+                        </div>
+                        <div class="term">
+                            <strong>Metafoor:</strong> Iets de naam geven van iets anders
+                        </div>
+                        <div class="term">
+                            <strong>Personificatie:</strong> Menselijke eigenschappen aan dingen geven
+                        </div>
+                    </div>
 
-Euro-pa-pa-pa-pa-pa-pa-pa
-Euro-pa-pa-pa
-(Hey)
-Euro-pa-pa-pa-pa-pa-pa-pa
-Eu-ro-pa!
-(Hey)
-
-Ich bin in Deutschland
-Aber Ich bin so allein
-Io sono in Italia
-Maar toch doet het pijn
-
-<span class="beeldspraak" data-type="Metafoor"><mark>Ben aan het vluchten van mezelf</mark></span>
-Roep de hele dag om “help!”
-Ja ik geef zelfs mensen geld
-Maar d’r is niemand die me helpt
-
-Ik hoef geen es-car-gots
-Hoef geen fish ‘n chips
-Hoef geen paella, no
-Ik weet niet eens echt wat dat is
-
-Zet de radio aan
-Ik hoor Stromae met “Papaoutai”
-<span class="stijlfiguur" data-type="Enjambement"><mark>Zal niet stoppen tot ze zeggen</mark><br><mark>“Ja, ja, dat doet-ie goed ey!”</mark></span>
-
-Welkom in <span class="stijlfiguur" data-type="Eindrijm"><mark>Europa</mark></span>
-Blijf hier tot ik <span class="stijlfiguur" data-type="Eindrijm"><mark>doodga</mark></span>
-Euro-pa-pa, Euro-pa-pa
-
-Welkom in <span class="stijlfiguur" data-type="Eindrijm"><mark>Europa</mark></span>
-Blijf hier tot ik <span class="stijlfiguur" data-type="Eindrijm"><mark>doodga</mark></span>
-Euro-pa-pa, Euro-pa-pa
-
-Euro-pa-pa-pa-pa-pa-pa-pa
-Euro-pa-pa-pa
-(Hey)
-Euro-pa-pa-pa-pa-pa-pa-pa
-Eu-ro-pa!
-
-Euro-pa-pa-pa-pa-pa-pa-pa-pa-pa-pa-pa….
-
-Welkom in Europa jongen!
-(Hey)
-Eu-ro-pa
-
-Aan het einde van de dag
-Zijn we allemaal mensen
-<span class="stijlfiguur" data-type="Enjambement"><mark>Mijn vader zei me ooit</mark><br><mark>Het is een wereld zonder grenzen</mark></span>
-
-Ik mis je elke dag
-Is wat ik stiekempjes fluister
-Zie je nou wel pa
-Ik heb naar je geluisterd
-            </pre>
-            <div class="assignment" id="opdrachten-lied">
-                <span class="assignment-icon">🎤</span>
-                <div>
-                    Wij hebben dit lied gekozen omdat Abel groot fan is van Joost Klein en omdat het gewoon een leuk liedje is.
-                    En natuurlijk ook omdat hij ongeveer het songfestival had gewonnen.<br><br>
-                    Het liedje heeft 11 coupletten en refreinen. Elk onderdeel heeft 4 regels, behalve het couplet net voor de drop.
-                    Ook heeft Europapa veel <span class="stijlfiguur" data-type="Enjambement"><mark>enjambement</mark></span>, in bijna elk couplet loopt de zin over 2 regels en bestaat een couplet dus in 2 zinnen.<br><br>
-                    En Europapa heeft heel veel <span class="stijlfiguur" data-type="Eindrijm"><mark>eindrijm</mark></span> bijvoorbeeld "Welkom in Europa, blijf hier tot ik doodga!"
-                    , maar het heeft geen vast rijmschema. Het is wel vaak ABCB, maar soms is er geen rijm in een couplet.
-                    Een voorbeeld van alliteratie is "<span class="stijlfiguur" data-type="Alliteratie"><mark>neem de benen naar Wenen</mark></span>".
+                    <!-- Extra spacer and test elements for this tab too -->
+                    <div class="spacer"></div>
+                    <div class="test-tooltip-section">
+                        <h3>Test Begrippen</h3>
+                        <p>Hier zijn enkele <span class="highlight enjambement" data-tooltip="Test tooltip voor een term onderaan de pagina.">termen</span> om te testen hoe de tooltips werken wanneer je helemaal onderaan de pagina bent.</p>
+                        <p>Deze <span class="highlight eindrijm" data-tooltip="Nog een test tooltip die correct moet verschijnen.">extra elementen</span> zijn toegevoegd om te controleren of de positionering van de tooltips correct werkt bij het scrollen.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
-    <button class="scroll-prompt" id="scrollPrompt" aria-label="Scroll naar opdrachten">
-        <span>⬇ Spring naar de opdrachten ⬇</span>
+
+    <!-- Tooltip element (now using position: fixed) -->
+    <div id="tooltip" class="tooltip"></div>
+
+    <!-- Scroll to bottom button -->
+    <button class="scroll-to-bottom" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
     </button>
-    <img src="img/joost.gif" alt="Joost Klein" class="joost-bounce-gif-bg"/>
-    <script src="main.js"></script>
+
+    <script src="app.js"></script>
 </body>
 </html>
