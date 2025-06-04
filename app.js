@@ -4,6 +4,8 @@ class PoetryAnalysisApp {
     constructor() {
         this.tooltip = null;
         this.activeTab = 'europapa';
+        this.europapaAudio = document.getElementById('europapa-audio');
+        this.userInteracted = false;
         this.init();
     }
 
@@ -11,6 +13,7 @@ class PoetryAnalysisApp {
         this.setupTooltip();
         this.setupTabNavigation();
         this.setupHighlightInteractions();
+        this.setupInvisibleAudio();
         this.addAccessibilityFeatures();
     }
 
@@ -77,21 +80,55 @@ class PoetryAnalysisApp {
             // Announce tab change for screen readers
             this.announceTabChange(activeButton.textContent);
         }
+        
+        if (targetTab === 'europapa') {
+            this.startEuropapaAudio();
+        } else {
+            this.stopEuropapaAudio();
+        }
     }
 
-    navigateTabsWithKeyboard(direction, tabButtons) {
-        const currentIndex = Array.from(tabButtons).findIndex(btn => btn.classList.contains('active'));
-        let newIndex;
+    setupInvisibleAudio() {
+        if (this.europapaAudio) {
+            // Start met muted voor autoplay compliance
+            this.europapaAudio.muted = true;
+            this.europapaAudio.loop = true;
+            this.europapaAudio.volume = 0.3;
 
-        if (direction === 'ArrowLeft') {
-            newIndex = currentIndex > 0 ? currentIndex - 1 : tabButtons.length - 1;
-        } else {
-            newIndex = currentIndex < tabButtons.length - 1 ? currentIndex + 1 : 0;
+            // Unmute na eerste user interaction
+            document.addEventListener('click', () => {
+                if (!this.userInteracted) {
+                    this.europapaAudio.muted = false;
+                    this.userInteracted = true;
+                }
+            }, { once: true });
+
+            // Start audio als Europapa tab al actief is
+            if (document.getElementById('europapa').classList.contains('active')) {
+                this.startEuropapaAudio();
+            }
+
+            // Error handling
+            this.europapaAudio.addEventListener('error', (e) => {
+                console.log('Audio error:', e);
+            });
         }
+    }
 
-        const newButton = tabButtons[newIndex];
-        newButton.focus();
-        newButton.click();
+    startEuropapaAudio() {
+        if (this.europapaAudio) {
+            this.europapaAudio.currentTime = 0;
+            this.europapaAudio.play().catch(error => {
+                console.log('Audio kon niet worden afgespeeld:', error);
+            });
+        }
+    }
+
+    stopEuropapaAudio() {
+        if (this.europapaAudio && !this.europapaAudio.paused) {
+            this.europapaAudio.pause();
+            this.europapaAudio.currentTime = 0;
+        }
     }
 
     setupHighlightInteractions() {
@@ -159,41 +196,36 @@ class PoetryAnalysisApp {
     updateTooltipPosition(event) {
         if (!this.tooltip || !this.tooltip.classList.contains('show')) return;
 
-        // Use clientX/Y coordinates instead of pageX/Y for correct positioning with fixed elements
-        const x = event.clientX + 10;
-        const y = event.clientY - 40;
-
-        // Get tooltip dimensions for boundary checking
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
         const tooltipRect = this.tooltip.getBoundingClientRect();
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        
-        let adjustedX = x;
-        let adjustedY = y;
-        
-        // Ensure tooltip stays within viewport horizontally
-        if (x + tooltipRect.width > viewportWidth) {
-            adjustedX = x - tooltipRect.width - 20; // Move to left of cursor if it would overflow right edge
-            
-            // If it would also overflow on the left, position at the left edge with a small margin
-            if (adjustedX < 10) {
-                adjustedX = 10;
-            }
+        const tooltipHeight = tooltipRect.height;
+        const windowHeight = window.innerHeight;
+
+        // Position calculation
+        let posX = mouseX + 10;
+        let posY = mouseY - tooltipHeight - 15;
+
+        // Horizontal boundary check
+        if (posX + tooltipRect.width > window.innerWidth) {
+            posX = window.innerWidth - tooltipRect.width - 10;
         }
-        
-        // Ensure tooltip stays within viewport vertically
-        if (y - tooltipRect.height < 0) {
-            // If tooltip would go above viewport, position below cursor
-            adjustedY = y + 20;
-        } else if (y + tooltipRect.height > viewportHeight) {
-            // If tooltip would go below viewport bottom, position above cursor
-            adjustedY = viewportHeight - tooltipRect.height - 10;
+
+        // Vertical boundary check
+        if (posY < 10) {
+            posY = mouseY + 25;
+            this.tooltip.classList.add('tooltip-bottom');
+            this.tooltip.classList.remove('tooltip-top');
+        } else {
+            this.tooltip.classList.add('tooltip-top');
+            this.tooltip.classList.remove('tooltip-bottom');
         }
-        
-        // Apply the position using fixed positioning
-        this.tooltip.style.left = adjustedX + 'px';
-        this.tooltip.style.top = adjustedY + 'px';
+
+        // Apply final position
+        this.tooltip.style.left = `${Math.max(10, posX)}px`;
+        this.tooltip.style.top = `${Math.max(10, posY)}px`;
     }
+
 
     hideTooltip() {
         if (this.tooltip) {
