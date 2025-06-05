@@ -14,6 +14,7 @@ class PoetryAnalysisApp {
         this.setupTabNavigation();
         this.setupHighlightInteractions();
         this.setupInvisibleAudio();
+        this.setupPopup();
         this.addAccessibilityFeatures();
     }
 
@@ -23,6 +24,51 @@ class PoetryAnalysisApp {
             console.error('Tooltip element not found');
             return;
         }
+    }
+
+    setupPopup() {
+        const popup = document.getElementById('voorwoord-popup');
+        const closeBtn = document.querySelector('.close-popup');
+        const closeButton = document.getElementById('close-voorwoord');
+
+        // Show popup on page load
+        if (popup) {
+            popup.style.display = 'flex';
+        }
+
+        // Close popup functions
+        const closePopup = () => {
+            if (popup) {
+                popup.classList.add('popup-hidden');
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 300);
+            }
+        };
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closePopup);
+        }
+
+        if (closeButton) {
+            closeButton.addEventListener('click', closePopup);
+        }
+
+        // Close popup when clicking outside
+        if (popup) {
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    closePopup();
+                }
+            });
+        }
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && popup && popup.style.display === 'flex') {
+                closePopup();
+            }
+        });
     }
 
     setupTabNavigation() {
@@ -80,12 +126,27 @@ class PoetryAnalysisApp {
             // Announce tab change for screen readers
             this.announceTabChange(activeButton.textContent);
         }
-        
+
+        // Audio control
         if (targetTab === 'europapa') {
             this.startEuropapaAudio();
         } else {
             this.stopEuropapaAudio();
         }
+    }
+
+    navigateTabsWithKeyboard(direction, tabButtons) {
+        const currentIndex = Array.from(tabButtons).findIndex(btn => btn.classList.contains('active'));
+        let newIndex;
+
+        if (direction === 'ArrowRight') {
+            newIndex = (currentIndex + 1) % tabButtons.length;
+        } else {
+            newIndex = currentIndex === 0 ? tabButtons.length - 1 : currentIndex - 1;
+        }
+
+        tabButtons[newIndex].focus();
+        tabButtons[newIndex].click();
     }
 
     setupInvisibleAudio() {
@@ -133,7 +194,7 @@ class PoetryAnalysisApp {
 
     setupHighlightInteractions() {
         const highlights = document.querySelectorAll('.highlight[data-tooltip]');
-        
+
         highlights.forEach(highlight => {
             // Mouse events
             highlight.addEventListener('mouseenter', (e) => {
@@ -183,12 +244,10 @@ class PoetryAnalysisApp {
 
         const element = event.target || event;
         const tooltipText = element.getAttribute('data-tooltip');
-        
         if (!tooltipText) return;
 
         this.tooltip.textContent = tooltipText;
         this.tooltip.classList.add('show');
-        
         this.updateTooltipPosition(event);
     }
 
@@ -226,7 +285,6 @@ class PoetryAnalysisApp {
         this.tooltip.style.top = `${Math.max(10, posY)}px`;
     }
 
-
     hideTooltip() {
         if (this.tooltip) {
             this.tooltip.classList.remove('show');
@@ -236,10 +294,8 @@ class PoetryAnalysisApp {
     addAccessibilityFeatures() {
         // Add skip links
         this.addSkipLinks();
-        
         // Improve focus management
         this.improveFocusManagement();
-        
         // Add live region for announcements
         this.addLiveRegion();
     }
@@ -257,7 +313,7 @@ class PoetryAnalysisApp {
             height: 1px;
             overflow: hidden;
         `;
-        
+
         skipLink.addEventListener('focus', () => {
             skipLink.style.cssText = `
                 position: absolute;
@@ -356,6 +412,7 @@ class EnhancedInteractions {
         this.setupSmoothScrolling();
         this.setupCardHoverEffects();
         this.setupResponsiveFeatures();
+        this.setupAnalyseFormulieren();
     }
 
     setupSmoothScrolling() {
@@ -376,7 +433,6 @@ class EnhancedInteractions {
 
     setupCardHoverEffects() {
         const cards = document.querySelectorAll('.card');
-        
         cards.forEach(card => {
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-2px)';
@@ -386,6 +442,96 @@ class EnhancedInteractions {
                 this.style.transform = 'translateY(0)';
             });
         });
+    }
+
+    setupAnalyseFormulieren() {
+        const analyseButtons = document.querySelectorAll('.analyse-formulier .btn');
+        
+        analyseButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const textarea = e.target.closest('.analyse-formulier').querySelector('textarea');
+                const analyse = textarea.value.trim();
+                
+                if (analyse) {
+                    // Save analysis to localStorage
+                    const gedichtTitel = e.target.closest('.card').querySelector('h2').textContent;
+                    localStorage.setItem(`analyse_${gedichtTitel}`, analyse);
+                    
+                    // Show success message
+                    this.showMessage('Analyse succesvol opgeslagen!', 'success');
+                    
+                    // Optional: clear textarea
+                    // textarea.value = '';
+                } else {
+                    this.showMessage('Vul eerst een analyse in voordat je opslaat.', 'warning');
+                }
+            });
+        });
+
+        // Load saved analyses on page load
+        this.loadSavedAnalyses();
+    }
+
+    loadSavedAnalyses() {
+        const analyseTextareas = document.querySelectorAll('.analyse-formulier textarea');
+        
+        analyseTextareas.forEach(textarea => {
+            const gedichtTitel = textarea.closest('.card').querySelector('h2').textContent;
+            const savedAnalyse = localStorage.getItem(`analyse_${gedichtTitel}`);
+            
+            if (savedAnalyse) {
+                textarea.value = savedAnalyse;
+                textarea.style.borderColor = '#28a745';
+                textarea.style.borderWidth = '2px';
+            }
+        });
+    }
+
+    showMessage(message, type = 'info') {
+        // Create message element
+        const messageEl = document.createElement('div');
+        messageEl.className = `message message--${type}`;
+        messageEl.textContent = message;
+        messageEl.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: white;
+            font-weight: 500;
+            z-index: 1002;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        `;
+        
+        // Set background color based on type
+        const colors = {
+            success: '#28a745',
+            warning: '#ffc107',
+            error: '#dc3545',
+            info: '#17a2b8'
+        };
+        messageEl.style.backgroundColor = colors[type] || colors.info;
+        
+        // Add to page
+        document.body.appendChild(messageEl);
+        
+        // Animate in
+        setTimeout(() => {
+            messageEl.style.transform = 'translateX(0)';
+        }, 10);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            messageEl.style.transform = 'translateX(400px)';
+            setTimeout(() => {
+                document.body.removeChild(messageEl);
+            }, 300);
+        }, 3000);
     }
 
     setupResponsiveFeatures() {
@@ -444,23 +590,23 @@ class PerformanceMonitor {
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize main application
     const app = new PoetryAnalysisApp();
-    
+
     // Initialize enhanced interactions
     const enhancedInteractions = new EnhancedInteractions();
-    
+
     // Initialize performance monitoring
     const perfMonitor = new PerformanceMonitor();
-    
+
     // Add global error handling
     window.addEventListener('error', (e) => {
         console.error('Application error:', e.error);
     });
-    
+
     // Add unhandled promise rejection handling
     window.addEventListener('unhandledrejection', (e) => {
         console.error('Unhandled promise rejection:', e.reason);
     });
-    
+
     console.log('Poetry Analysis Application initialized successfully');
 });
 
@@ -471,7 +617,7 @@ style.textContent = `
         outline: 2px solid #003399 !important;
         outline-offset: 2px !important;
     }
-    
+
     .keyboard-navigation .highlight:focus {
         outline: 2px solid #FFCC00 !important;
         outline-offset: 2px !important;
