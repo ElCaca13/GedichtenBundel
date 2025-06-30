@@ -79,20 +79,26 @@
   --radius-lg: 12px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
-    0 2px 4px -1px rgba(0, 0, 0, 0.02);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
-    0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  /* Shadows - Refined for a softer, more modern look */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 5px 10px -2px rgba(0, 0, 0, 0.05),
+    0 3px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 20px -5px rgba(0, 0, 0, 0.05),
+    0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 30px -8px rgba(0, 0, 0, 0.06),
+    0 10px 15px -8px rgba(0, 0, 0, 0.05);
   --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
     inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
 
   /* Animation */
   --duration-fast: 150ms;
   --duration-normal: 250ms;
+  --duration-slow: 400ms;
   --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1);
 
   /* Layout */
   --container-sm: 640px;
@@ -222,12 +228,16 @@ html {
   color: var(--color-text);
   background-color: var(--color-background);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; /* For Firefox */
+  text-rendering: optimizeLegibility;
   box-sizing: border-box;
+  scroll-behavior: smooth; /* Added for smoother programmatic scrolling */
 }
 
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrollbars if content overflows slightly */
 }
 
 *,
@@ -243,7 +253,7 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0;
+  margin: 0 0 var(--space-12) 0; /* Added a small default bottom margin */
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
   color: var(--color-text);
@@ -271,40 +281,45 @@ h6 {
 
 p {
   margin: 0 0 var(--space-16) 0;
+  line-height: var(--line-height-normal); /* Ensure consistent line height */
 }
 
 a {
   color: var(--color-primary);
   text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-standard);
+  transition: color var(--duration-fast) var(--ease-standard),
+              opacity var(--duration-fast) var(--ease-standard); /* Added opacity transition */
 }
 
 a:hover {
   color: var(--color-primary-hover);
+  opacity: 0.85; /* Slight fade on hover for links */
 }
 
 code,
 pre {
   font-family: var(--font-family-mono);
-  font-size: calc(var(--font-size-base) * 0.95);
+  font-size: calc(var(--font-size-base) * 0.92); /* Slightly smaller for better balance */
   background-color: var(--color-secondary);
   border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border); /* Added border to code blocks */
 }
 
 code {
-  padding: var(--space-1) var(--space-4);
+  padding: var(--space-2) var(--space-6); /* Adjusted padding */
+  border: none; /* Inline code shouldn't have a border from pre's style */
 }
 
 pre {
   padding: var(--space-16);
-  margin: var(--space-16) 0;
+  margin: var(--space-20) 0; /* Consistent margin */
   overflow: auto;
-  border: 1px solid var(--color-border);
 }
 
 pre code {
   background: none;
   padding: 0;
+  border: none;
 }
 
 /* Buttons */
@@ -312,16 +327,20 @@ pre code {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-8) var(--space-16);
+  padding: var(--space-10) var(--space-20); /* Slightly larger padding */
   border-radius: var(--radius-base);
   font-size: var(--font-size-base);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium); /* Changed from 500 */
   line-height: 1.5;
   cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-standard);
+  transition: background-color var(--duration-normal) var(--ease-out-cubic),
+              color var(--duration-normal) var(--ease-out-cubic),
+              transform var(--duration-fast) var(--ease-out-cubic),
+              box-shadow var(--duration-normal) var(--ease-out-cubic);
   border: none;
   text-decoration: none;
   position: relative;
+  overflow: hidden; /* For ripple effect if added later */
 }
 
 .btn:focus-visible {
@@ -329,40 +348,65 @@ pre code {
   box-shadow: var(--focus-ring);
 }
 
+.btn:hover { /* General hover for all buttons */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm); /* Add a subtle shadow on hover */
+}
+
+.btn:active { /* General active state for all buttons */
+  transform: translateY(0px); /* Pressed down effect */
+  box-shadow: var(--shadow-xs); /* Less shadow when active */
+}
+
 .btn--primary {
   background: var(--color-primary);
   color: var(--color-btn-primary-text);
+  box-shadow: var(--shadow-xs); /* Default shadow for primary button */
 }
 
 .btn--primary:hover {
   background: var(--color-primary-hover);
+  box-shadow: var(--shadow-md); /* More pronounced shadow on hover for primary */
 }
 
 .btn--primary:active {
   background: var(--color-primary-active);
+  box-shadow: var(--shadow-inset-sm); /* Inset shadow when active */
 }
 
 .btn--secondary {
   background: var(--color-secondary);
   color: var(--color-text);
+  box-shadow: var(--shadow-xs);
 }
 
 .btn--secondary:hover {
   background: var(--color-secondary-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .btn--secondary:active {
   background: var(--color-secondary-active);
+  box-shadow: var(--shadow-inset-sm);
 }
 
 .btn--outline {
   background: transparent;
   border: 1px solid var(--color-border);
   color: var(--color-text);
+  /* No default box-shadow for outline buttons, or a very minimal one */
 }
 
 .btn--outline:hover {
   background: var(--color-secondary);
+  border-color: var(--color-primary); /* Highlight border on hover */
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--outline:active {
+  background: var(--color-secondary-active);
+  box-shadow: var(--shadow-inset-sm);
 }
 
 .btn--sm {
@@ -453,16 +497,20 @@ select.form-control {
 /* Card component */
 .card {
   background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-lg); /* Existing radius is good */
   border: 1px solid var(--color-card-border);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  transition: box-shadow var(--duration-normal) var(--ease-standard);
-  margin: 20px;
+  box-shadow: var(--shadow-md); /* Use a slightly more pronounced default shadow */
+  overflow: hidden; /* Keep this for image containers etc. */
+  transition: box-shadow var(--duration-normal) var(--ease-out-cubic),
+              transform var(--duration-normal) var(--ease-out-cubic),
+              border-color var(--duration-normal) var(--ease-standard);
+  margin: var(--space-20); /* Consistent spacing */
 }
 
 .card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg); /* Elevate more on hover */
+  transform: translateY(-4px); /* Subtle lift effect */
+  border-color: var(--color-primary); /* Highlight with primary color */
 }
 
 .card__body {
@@ -658,25 +706,29 @@ select.form-control {
 /* Additional styles for the poetry analysis application */
 /* Header styles */
 .header {
-    background: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-active));
     color: var(--color-btn-primary-text);
-    padding: var(--space-32) 0;
+    padding: var(--space-32) var(--space-16); /* Added horizontal padding */
     text-align: center;
     box-shadow: var(--shadow-lg);
+    border-bottom: 3px solid var(--color-primary-active); /* Subtle border for depth */
 }
 
 .header h1 {
     color: var(--color-btn-primary-text);
     font-size: var(--font-size-4xl);
     margin-bottom: var(--space-8);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-bold); /* Slightly bolder */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Softer text shadow */
 }
 
 .subtitle {
     color: var(--color-btn-primary-text);
-    opacity: 0.9;
+    opacity: 0.95; /* Slightly more opaque */
     font-size: var(--font-size-lg);
     margin: 0;
+    font-weight: var(--font-weight-normal);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Softer text shadow */
 }
 
 /* Navigation tabs */
@@ -704,11 +756,25 @@ select.form-control {
     font-weight: var(--font-weight-medium);
     color: var(--color-text);
     cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all var(--duration-normal) var(--ease-standard);
+    border-bottom: 3px solid transparent; /* Keep for spacing */
+    transition: background-color var(--duration-normal) var(--ease-out-cubic),
+                color var(--duration-normal) var(--ease-out-cubic);
     white-space: nowrap;
     min-width: 180px;
     text-align: center;
+    position: relative; /* For pseudo-element positioning */
+}
+
+.tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Align with the parent's border-bottom */
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--color-primary);
+    transition: width var(--duration-normal) var(--ease-out-cubic),
+                left var(--duration-normal) var(--ease-out-cubic);
 }
 
 .tab-button:hover {
@@ -717,10 +783,15 @@ select.form-control {
 }
 
 .tab-button.active {
-    background: var(--color-secondary);
+    background: var(--color-secondary); /* Can keep or remove if only relying on underline */
     color: var(--color-primary);
-    border-bottom-color: var(--color-primary);
     font-weight: var(--font-weight-semibold);
+    /* border-bottom-color: transparent; /* Hide the original border */
+}
+
+.tab-button.active::after {
+    width: 70%; /* Or adjust as needed, e.g., 100% for full underline */
+    left: 15%;  /* (100% - 70%) / 2 */
 }
 
 .tab-button:focus-visible {
@@ -757,6 +828,15 @@ select.form-control {
     gap: var(--space-8);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
+    padding: var(--space-4) var(--space-8); /* Add some padding */
+    border-radius: var(--radius-sm);
+    transition: background-color var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard);
+}
+
+.legend-item:hover {
+    background-color: var(--color-secondary-hover);
+    transform: scale(1.05);
 }
 
 .legend-color {
@@ -785,23 +865,33 @@ select.form-control {
 /* Tab content */
 .tab-content {
     display: none;
-    animation: fadeIn var(--duration-normal) var(--ease-standard);
+    opacity: 0; /* Start fully transparent */
+    transform: translateY(15px); /* Start slightly lower */
+    transition: opacity var(--duration-slow) var(--ease-out-cubic),
+                transform var(--duration-slow) var(--ease-out-cubic);
 }
 
 .tab-content.active {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Removed old @keyframes fadeIn as we are using transitions directly on the class */
+
+/* Reveal animation for cards on scroll */
+.card.revealed {
+    opacity: 1;
+    transform: translateY(0);
 }
+
+.card:not(.revealed) { /* Initial state for cards before they are revealed */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--duration-slow) var(--ease-out-cubic),
+                transform var(--duration-slow) var(--ease-out-cubic);
+}
+
 
 /* Content sections */
 .lyrics, .poem {
@@ -834,15 +924,32 @@ select.form-control {
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-sm);
     cursor: help;
-    transition: all var(--duration-fast) var(--ease-standard);
+    transition: transform var(--duration-fast) var(--ease-out-cubic),
+                box-shadow var(--duration-fast) var(--ease-out-cubic),
+                background-color var(--duration-fast) var(--ease-standard); /* Added background-color transition */
     position: relative;
-    display: inline;
+    display: inline-block; /* Changed to inline-block for better transform behavior */
 }
 
 .highlight:hover {
-    transform: scale(1.02);
-    box-shadow: var(--shadow-sm);
+    transform: scale(1.04); /* Slightly more pronounced scale */
+    box-shadow: var(--shadow-md); /* A bit more shadow */
 }
+
+/* Specific hover effects for different highlight types for more visual flair */
+.highlight.enjambement:hover {
+    background-color: rgba(112, 169, 255, 0.8); /* Darken or modify base color */
+}
+.highlight.eindrijm:hover {
+    background-color: rgba(255, 209, 25, 0.8);
+}
+.highlight.alliteratie:hover {
+    background-color: rgba(102, 204, 102, 0.8);
+}
+.highlight.metafoor:hover {
+    background-color: rgba(227, 125, 255, 0.8);
+}
+
 
 /* Updated highlight styling */
 .highlight.enjambement {
@@ -942,37 +1049,52 @@ select.form-control {
 /* Fixed tooltip with proper positioning */
 .tooltip {
     position: fixed;
-    background: var(--color-primary);
-    color: var(--color-btn-primary-text);
-    padding: var(--space-8) var(--space-12);
-    border-radius: var(--radius-base);
+    background-color: var(--color-text); /* Dark background for contrast */
+    color: var(--color-background); /* Light text */
+    padding: var(--space-6) var(--space-10); /* Slightly adjusted padding */
+    border-radius: var(--radius-sm); /* Sharper radius */
     font-size: var(--font-size-sm);
-    max-width: 250px;
-    z-index: 1000;
-    box-shadow: var(--shadow-md);
+    line-height: var(--line-height-tight);
+    max-width: 280px; /* Slightly wider */
+    z-index: 10000; /* Ensure it's above other elements like sticky nav */
+    box-shadow: var(--shadow-lg); /* More pronounced shadow */
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--duration-fast) var(--ease-standard), 
-                transform var(--duration-fast) var(--ease-standard);
-    transform: translateY(-5px);
+    /* Start further up and fade in */
+    transform: translateY(-10px) scale(0.95);
+    transition: opacity var(--duration-normal) var(--ease-out-cubic),
+                transform var(--duration-normal) var(--ease-out-cubic);
 }
 
 .tooltip.show {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
-.tooltip::after {
+.tooltip::after { /* This will be the arrow */
     content: "";
     position: absolute;
-    top: 100%;
     left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
     border-style: solid;
-    border-color: var(--color-primary) transparent transparent transparent;
-    display: none;
 }
+
+/* Arrow pointing down (tooltip is above the element) */
+.tooltip.tooltip-top::after {
+    top: 100%;
+    border-width: 6px 6px 0 6px;
+    border-color: var(--color-text) transparent transparent transparent;
+}
+
+/* Arrow pointing up (tooltip is below the element) */
+.tooltip.tooltip-bottom::after {
+    bottom: 100%;
+    border-width: 0 6px 6px 6px;
+    border-color: transparent transparent var(--color-text) transparent;
+}
+
 
 /* Card enhancements */
 .card {
@@ -1254,61 +1376,88 @@ select.form-control {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker backdrop */
     align-items: center;
     justify-content: center;
     visibility: visible;
     opacity: 1;
-    transition: visibility 0s, opacity var(--duration-normal) linear;
+    transition: visibility var(--duration-normal) var(--ease-out-cubic),
+                opacity var(--duration-normal) var(--ease-out-cubic);
+}
+
+.popup .popup-content { /* Target content for transform */
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    transition: transform var(--duration-normal) var(--ease-out-cubic),
+                opacity var(--duration-normal) var(--ease-out-cubic);
 }
 
 .popup-hidden {
     visibility: hidden;
     opacity: 0;
+    /* transition delay should match main transition duration */
     transition: visibility 0s linear var(--duration-normal), 
-                opacity var(--duration-normal) linear;
+                opacity var(--duration-normal) var(--ease-out-cubic);
+}
+
+.popup-hidden .popup-content {
+    transform: scale(0.95) translateY(10px);
+    opacity: 0;
 }
 
 .popup-content {
     background-color: var(--color-surface);
-    border-radius: var(--radius-lg);
-    padding: var(--space-24);
-    width: 80%;
-    max-width: 800px;
-    max-height: 90%;
+    border-radius: var(--radius-md); /* Slightly smaller radius for a tighter look */
+    padding: var(--space-24) var(--space-32); /* More horizontal padding */
+    width: 90%; /* Allow a bit wider on smaller screens */
+    max-width: 700px; /* Slightly reduced max-width */
+    max-height: 90vh; /* Use vh for viewport height */
     overflow-y: auto;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl); /* Use a more pronounced shadow */
     position: relative;
+    border-top: 4px solid var(--color-primary); /* Accent border */
 }
 
 .close-popup {
     position: absolute;
-    right: var(--space-16);
-    top: var(--space-16);
-    font-size: 28px;
-    font-weight: bold;
+    right: var(--space-12); /* Closer to edge */
+    top: var(--space-12);
+    font-size: var(--font-size-3xl); /* Larger close icon */
+    font-weight: var(--font-weight-normal); /* Lighter weight */
     color: var(--color-text-secondary);
     cursor: pointer;
-    transition: color var(--duration-fast) var(--ease-standard);
+    transition: color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+    padding: var(--space-4);
+    line-height: 1; /* Ensure consistent height */
 }
 
 .close-popup:hover {
-    color: var(--color-text);
+    color: var(--color-error); /* Use error color for close action */
+    transform: scale(1.1);
 }
 
 .popup-content h2 {
     color: var(--color-primary);
-    margin-bottom: var(--space-16);
+    margin-bottom: var(--space-20); /* Increased margin */
+    text-align: center; /* Center title */
+    font-size: var(--font-size-3xl);
 }
 
 .popup-content p {
-    margin-bottom: var(--space-16);
-    line-height: var(--line-height-normal);
+    margin-bottom: var(--space-20); /* Increased margin */
+    line-height: 1.6; /* Slightly more spacious line height */
+    font-size: var(--font-size-base);
+}
+
+.popup-content p:last-of-type {
+    margin-bottom: var(--space-24); /* More space before the button */
 }
 
 .popup-content .btn {
     display: block;
-    margin: var(--space-16) auto 0;
+    margin: var(--space-24) auto 0; /* Increased top margin */
+    padding: var(--space-12) var(--space-24); /* Larger button */
+    font-size: var(--font-size-lg);
 }
 
 /* Nawoord styling */

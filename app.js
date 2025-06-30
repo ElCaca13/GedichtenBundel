@@ -410,9 +410,42 @@ class PoetryAnalysisApp {
 class EnhancedInteractions {
     constructor() {
         this.setupSmoothScrolling();
-        this.setupCardHoverEffects();
+        // this.setupCardHoverEffects(); // Will be replaced by IntersectionObserver reveal
         this.setupResponsiveFeatures();
         this.setupAnalyseFormulieren();
+        this.setupCardRevealAnimation(); // New method call
+    }
+
+    setupCardRevealAnimation() {
+        const cards = document.querySelectorAll('.card');
+        if (!cards.length) return;
+
+        const observerOptions = {
+            root: null, // relative to document viewport
+            rootMargin: '0px',
+            threshold: 0.1 // 10% of the item is visible
+        };
+
+        const revealCard = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    // Optional: unobserve the element after it has been revealed
+                    // observer.unobserve(entry.target);
+                }
+                // Optional: else, remove 'revealed' class to re-animate if it scrolls out and back in
+                // else {
+                //    entry.target.classList.remove('revealed');
+                // }
+            });
+        };
+
+        const cardObserver = new IntersectionObserver(revealCard, observerOptions);
+        cards.forEach(card => {
+            // Initially, cards are not revealed. CSS handles their initial state (opacity: 0, transform: translateY(20px))
+            // The .revealed class will trigger the transition to opacity: 1 and transform: translateY(0)
+            cardObserver.observe(card);
+        });
     }
 
     setupSmoothScrolling() {
